@@ -5,7 +5,7 @@ PWA de lista de compras: adicione produtos por categoria, registre o preço no m
 ## Rodando localmente
 
 ```bash
-cp .env.example .env   # preencha com as chaves do seu projeto Firebase
+cp .env.example .env   # preencha com as chaves do seu projeto Firebases
 npm install
 npm run dev
 ```

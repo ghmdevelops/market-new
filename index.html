@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- SEO básico -->
+    <title>Lista de Mercado — compare preços e controle seus gastos</title>
+    <meta name="description" content="Monte sua lista de compras, registre os preços no mercado, acompanhe o total em tempo real e compare quanto gastou entre compras e meses. Grátis, funciona offline e instala no celular." />
+    <meta name="keywords" content="lista de mercado, lista de compras, comparar preços, controle de gastos, orçamento supermercado, app de compras" />
+    <meta name="author" content="Lista de Mercado" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="%SITE_URL%/" />
+
+    <!-- Open Graph (WhatsApp, Facebook, LinkedIn, Telegram) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lista de Mercado" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:title" content="Lista de Mercado — compare preços e controle seus gastos" />
+    <meta property="og:description" content="Registre os preços enquanto compra, veja o total na hora e descubra em que mês (e em qual mercado) você gastou mais. Grátis e funciona offline." />
+    <meta property="og:image" content="%SITE_URL%/og-image.png" />
+    <meta property="og:image:secure_url" content="%SITE_URL%/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Lista de Mercado — carrinho com check e o texto 'Compare preços e controle seus gastos'" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lista de Mercado — compare preços e controle seus gastos" />
+    <meta name="twitter:description" content="Registre os preços enquanto compra, veja o total na hora e compare seus gastos mês a mês. Grátis e funciona offline." />
+    <meta name="twitter:image" content="%SITE_URL%/og-image.png" />
+    <meta name="twitter:image:alt" content="Lista de Mercado — carrinho com check" />
+
+    <!-- PWA / mobile -->
+    <meta name="theme-color" content="#f1f5f9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Mercado" />
+    <meta name="application-name" content="Lista de Mercado" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Dados estruturados -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Lista de Mercado",
+        "url": "%SITE_URL%/",
+        "description": "Lista de compras com registro de preços, orçamento, total em tempo real e comparação de gastos entre compras e meses.",
+        "applicationCategory": "ShoppingApplication",
+        "operatingSystem": "Any",
+        "inLanguage": "pt-BR",
+        "image": "%SITE_URL%/og-image.png",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+        "featureList": [
+          "Lista de compras por categoria",
+          "Registro de preço e quantidade no mercado",
+          "Total em tempo real com orçamento",
+          "Alerta de preço acima da média",
+          "Histórico e comparação entre compras",
+          "Dashboard de gastos por mês e categoria",
+          "Funciona offline e instala no celular"
+        ]
+      }
+    </script>
+
+    <script>
+      // Aplica o tema antes do React renderizar para evitar "flash" de tema claro
+      (function () {
+        var saved = localStorage.getItem('theme')
+        var dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
+        document.documentElement.classList.toggle('dark', dark)
+      })()
+    </script>
+  </head>
+  <body class="min-h-dvh bg-slate-100 text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-100">
+    <div id="root">
+      <noscript>
+        <main style="max-width:36rem;margin:3rem auto;padding:1rem;font-family:system-ui,sans-serif">
+          <h1>Lista de Mercado</h1>
+          <p>Monte sua lista, registre os preços no mercado e compare seus gastos entre compras. Ative o JavaScript para usar o aplicativo.</p>
+        </main>
+      </noscript>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

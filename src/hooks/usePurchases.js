@@ -4,7 +4,7 @@ import { db } from '../firebase'
 
 /*
   Estrutura no Realtime Database:
-  purchases/{id}: {
+  users/{user}/purchases/{id}: {
     startedAt: number,
     finishedAt: number | null,   // null = compra em andamento
     market: string | null,
@@ -12,12 +12,15 @@ import { db } from '../firebase'
     items: { [productId]: { name, category, price, qty, checked, checkedAt } }
   }
 */
-export function usePurchases() {
+export function usePurchases(user) {
   const [purchases, setPurchases] = useState([])
   const [loading, setLoading] = useState(true)
+  const base = `users/${user}/purchases`
 
   useEffect(() => {
-    return onValue(ref(db, 'purchases'), (snap) => {
+    setPurchases([])
+    setLoading(true)
+    return onValue(ref(db, base), (snap) => {
       const data = snap.val() ?? {}
       const list = Object.entries(data)
         .map(([id, p]) => ({ id, items: {}, finishedAt: null, ...p }))
@@ -25,13 +28,13 @@ export function usePurchases() {
       setPurchases(list)
       setLoading(false)
     })
-  }, [])
+  }, [base])
 
   const current = useMemo(() => purchases.find((p) => p.finishedAt === null) ?? null, [purchases])
   const history = useMemo(() => purchases.filter((p) => p.finishedAt !== null), [purchases])
 
   const startPurchase = (market, budget) =>
-    push(ref(db, 'purchases'), {
+    push(ref(db, base), {
       startedAt: Date.now(),
       finishedAt: null,
       market: market?.trim() || null,
@@ -58,15 +61,15 @@ export function usePurchases() {
   }, [history])
 
   const setItem = (purchaseId, productId, item) =>
-    update(ref(db, `purchases/${purchaseId}/items`), { [productId]: item })
+    update(ref(db, `${base}/${purchaseId}/items`), { [productId]: item })
 
   const uncheckItem = (purchaseId, productId) =>
-    remove(ref(db, `purchases/${purchaseId}/items/${productId}`))
+    remove(ref(db, `${base}/${purchaseId}/items/${productId}`))
 
   const finishPurchase = (purchaseId) =>
-    update(ref(db, `purchases/${purchaseId}`), { finishedAt: Date.now() })
+    update(ref(db, `${base}/${purchaseId}`), { finishedAt: Date.now() })
 
-  const deletePurchase = (purchaseId) => remove(ref(db, `purchases/${purchaseId}`))
+  const deletePurchase = (purchaseId) => remove(ref(db, `${base}/${purchaseId}`))
 
   return { current, history, loading, priceStats, startPurchase, setItem, uncheckItem, finishPurchase, deletePurchase }
 }

@@ -5,7 +5,7 @@ PWA de lista de compras: adicione produtos por categoria, registre o preço no m
 ## Rodando localmente
 
 ```bash
-cp .env.example .env   # preencha com as chaves do seu projeto Firebases
+cp .env.example .env   # preencha com as chaves do seu projeto Firebase
 npm install
 npm run dev
 ```
@@ -31,10 +31,23 @@ npm run dev
 ### Estrutura dos dados
 
 ```
-products/{id}           { name, category, createdAt }
-purchases/{id}          { startedAt, finishedAt|null, market|null, budget|null,
-                          items: { [productId]: { name, category, price, qty, checked, checkedAt } } }
+users/{apelido}/products/{id}    { name, category, createdAt }
+users/{apelido}/purchases/{id}   { startedAt, finishedAt|null, market|null, budget|null,
+                                   items: { [productId]: { name, category, price, qty, checked, checkedAt } } }
 ```
+
+### Apelido (identificação sem cadastro)
+
+Ao abrir o app pela primeira vez a pessoa escolhe um **apelido** (3–20 caracteres: letras minúsculas, números, `_`, `-`). Ele fica salvo no aparelho (`localStorage`) e define a pasta `users/<apelido>/` onde todos os dados dela ficam. Não existe senha, e-mail ou recuperação.
+
+> **Adendo — leia antes de usar**
+>
+> - O apelido é a **única chave** dos dados. Quem esquecer ou digitar diferente (ex.: `casa-da-ana` vs `casa-ana`) entra em uma lista vazia e **não há como recuperar** a anterior.
+> - Qualquer pessoa que souber o apelido consegue **ver e editar** a lista. Não use nomes óbvios; não é um mecanismo de segurança.
+> - Para usar o mesmo apelido em outro aparelho, basta digitá-lo lá — os dados são os mesmos (é também o jeito de compartilhar a lista com alguém da casa).
+> - Dados criados antes desse recurso (na raiz `/products` e `/purchases`) são detectados na tela de entrada e podem ser movidos para o apelido escolhido com um clique. Isso acontece uma vez só.
+>
+> Se um dia precisar de algo mais robusto, o caminho é Firebase Auth (login Google) com regras `users/$uid` restritas a `auth.uid`.
 
 ## Deploy no Netlify
 
